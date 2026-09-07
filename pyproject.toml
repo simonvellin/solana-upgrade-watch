@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "solana-upgrade-watch"
+version = "1.0.0"
+description = "Who can upgrade your money? Resolve any Solana program's upgrade authority, Squads multisig config, timelock, and queued upgrades."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "YieldCompass" }]
+keywords = ["solana", "security", "multisig", "squads", "upgrade-authority"]
+
+[project.urls]
+Homepage = "https://yieldcompass.fi"
+
+[project.scripts]
+solana-upgrade-watch = "upgrade_watch.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["upgrade_watch*"]
