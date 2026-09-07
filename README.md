@@ -1,7 +1,5 @@
 # solana-upgrade-watch
 
-**Who can upgrade your money?**
-
 Every upgradeable Solana program has an upgrade authority that can replace
 its code, including the code holding your deposits. This tool resolves,
 for any program id, exactly who that is and what stands between them and
