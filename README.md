@@ -91,5 +91,3 @@ no indexer, nothing stored, nothing phoned home:
   with the owning program surfaced — identification, not decoding.
 - The queued-upgrade scan walks the most recent proposals (default 12);
   a proposal older than that window is not shown.
-
-MIT licensed. Issues and PRs welcome.
