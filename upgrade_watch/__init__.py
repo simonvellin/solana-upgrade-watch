@@ -1,4 +1,4 @@
-"""solana-upgrade-watch — who can upgrade your money?
+"""solana-upgrade-watch: who can upgrade your money?
 
 Resolve any Solana program's upgrade control: authority, multisig
 configuration, timelock, last deploy, and queued-but-unexecuted upgrades.

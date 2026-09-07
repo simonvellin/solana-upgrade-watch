@@ -1,7 +1,7 @@
 """Core resolution: who can upgrade a Solana program, and how.
 
 Pure-stdlib Python. Everything here talks directly to a Solana JSON-RPC
-endpoint of your choosing — nothing else is contacted, nothing is stored.
+endpoint of your choosing. Nothing else is contacted, nothing is stored.
 
 Resolution pipeline for a program id:
   1. Loader classification (BPFLoaderUpgradeable / legacy immutable / v4).
@@ -14,7 +14,7 @@ Resolution pipeline for a program id:
                                 identified by deriving every candidate
                                 multisig's vault PDA locally and matching
   4. For Squads v4: threshold (approvals / voting members), timelock,
-     member count, and any ACTIVE/APPROVED proposals — i.e. upgrades
+     member count, and any ACTIVE/APPROVED proposals, meaning upgrades
      already queued but not yet executed.
 """
 from __future__ import annotations
@@ -64,7 +64,7 @@ def b58encode(b: bytes) -> str:
 
 
 def is_on_curve(b32: bytes) -> bool:
-    """True when the 32 bytes decompress to a valid ed25519 point — i.e. the
+    """True when the 32 bytes decompress to a valid ed25519 point, so the
     address can be a real keypair. PDAs are deliberately off-curve."""
     y = int.from_bytes(b32, "little") & ((1 << 255) - 1)
     if y >= _P:
@@ -205,12 +205,12 @@ def _settings_from_history(rpc: Rpc, authority: str, vault_indexes: int) -> str 
 def find_squads_settings(rpc: Rpc, authority: str, vault_indexes: int = 4) -> str | None:
     """Reverse-lookup: which Squads v4 multisig OWNS this authority (vault)?
 
-    Fast path first: the vault's own transaction history — any tx executed
+    Fast path first: the vault's own transaction history. Any tx executed
     through the vault references its Multisig settings account, so reading
     one transaction's account keys usually answers in two RPC calls.
     Fallback: list every v4 Multisig account (pubkeys only) and derive each
     one's first few vault PDAs locally until one matches (heavy on public
-    RPC endpoints; instant local hashing once fetched)."""
+    RPC endpoints, instant local hashing once fetched)."""
     fast = _settings_from_history(rpc, authority, vault_indexes)
     if fast:
         return fast
@@ -231,7 +231,7 @@ def find_squads_settings(rpc: Rpc, authority: str, vault_indexes: int = 4) -> st
 def queued_upgrades(rpc: Rpc, settings: str, programdata: str,
                     lookback: int = 12) -> list:
     """ACTIVE / APPROVED proposals on the multisig whose transaction touches
-    this program's ProgramData — upgrades queued but not yet executed."""
+    this program's ProgramData: upgrades queued but not yet executed."""
     raw = rpc.account_b64(settings)
     if raw is None:
         return []
